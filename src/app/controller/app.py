@@ -55,7 +55,9 @@ def post_message_data():
         bootstrap_servers=['192.168.1.47:9092'],  # Replace with your Kafka broker(s)
         value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )
-    producer.send('expense_topic', value=response_data)
+    producer.send('expense_topic', value=data)
+    producer.flush()
+    producer.close()
     return response_data
 
 if __name__ == '__main__':
